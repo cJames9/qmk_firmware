@@ -1,0 +1,134 @@
+/* Copyright 2023 Brian Low
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+#include QMK_KEYBOARD_H
+
+#include "sendstring_brazilian_abnt2.h"
+#include "keymap_brazilian_abnt2.h"
+
+// Each layer gets a name for readability, which is then used in the keymap matrix below.
+// The underscores don't mean anything - you can have a layer called STUFF or any other name.
+#define _BASE 0
+#define _SYMB 1
+#define _NAVI 2
+#define _RGB  3
+
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+/*
+ * Layout padrão, adaptado do QWERTY ABNT2
+ * ,-----------------------------------------.                    ,-----------------------------------------.
+ * | ESC  |   1  |   2  |   3  |   4  |   5  |                    |   6  |   7  |   8  |   9  |   0  | Bspc |
+ * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
+ * | '    |   Q  |   W  |   E  |   R  |   T  |                    |   Y  |   U  |   I  |   O  |   P  |  ´   |
+ * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
+ * | Tab  |   A  |   S  |   D  |   F  |   G  |-------.    ,-------|   H  |   J  |   K  |   L  |   Ç  |  ~   |
+ * |------+------+------+------+------+------|  Mute |    | Numpad|------+------+------+------+------+------|
+ * |LShift|   Z  |   X  |   C  |   V  |   B  |-------|    |-------|   N  |   M  |   ,  |   .  |   ;  | /    |
+ * `-----------------------------------------/       /     \      \-----------------------------------------'
+ *            | LALT | LCMD | LCTL | TT 1 | /Space  /       \Enter \  | TT 2 | Del  | RCTL | APPL |
+ *            |      |      |      |      |/       /         \      \ |      |      |      |      |
+ *            `-----------------------------------'           '------''---------------------------'
+ */
+
+[_BASE] = LAYOUT(
+    KC_ESC,   KC_1,    KC_2,     KC_3,    KC_4,    KC_5,                       KC_6,     KC_7,     KC_8,    KC_9,    KC_0,    KC_BSPC,
+    BR_QUOT,  KC_Q,    KC_W,     KC_E,    KC_R,    KC_T,                       KC_Y,     KC_U,     KC_I,    KC_O,    KC_P,    BR_ACUT,
+    KC_TAB,   KC_A,    KC_S,     KC_D,    KC_F,    KC_G,                       KC_H,     KC_J,     KC_K,    KC_L,    BR_CCED, BR_TILD,
+    KC_LSFT,  KC_Z,    KC_X,     KC_C,    KC_V,    KC_B,    KC_MUTE,   TG(3),  KC_N,     KC_M,     KC_COMM, KC_DOT,  BR_SCLN, BR_SLSH,
+                       KC_LALT,  KC_LCMD, KC_LCTL, TT(1),   KC_SPC,    KC_ENT, TT(2),    KC_DEL,   KC_RCTL, KC_APP
+),
+
+/*
+ * Layout símbolos
+ * ,-----------------------------------------.                    ,-----------------------------------------.
+ * | ESC  |  F1  |  F2  |  F3  |  F4  |  F5  |                    |  F6  |  F7  |  F8  |  F9  |  F10 |  F11 |
+ * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
+ * | '    |   -  |   +  |   =  |   {  |   }  |                    |   [  |   ]  |      |   \  |   |  |  F12 |
+ * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
+ * | Tab  |   !  |   @  |   #  |   $  |   %  |-------.    ,-------|   H  |   J  |   K  |   L  |   Ç  |  ~   |
+ * |------+------+------+------+------+------|  Mute |    | Numpad|------+------+------+------+------+------|
+ * |LShift|   Z  |   X  |   C  |   V  |   B  |-------|    |-------|   N  |   M  |   ,  |   .  |   ;  | /    |
+ * `-----------------------------------------/       /     \      \-----------------------------------------'
+ *            | LALT | LCMD | LCTL | TT 1 | /Space  /       \Enter \  | TT 2 | Del  | RCTL | APPL |
+ *            |      |      |      |      |/       /         \      \ |      |      |      |      |
+ *            `-----------------------------------'           '------''---------------------------'
+ */
+
+[_SYMB] = LAYOUT(
+    _______,  KC_F1,   KC_F2,    KC_F3,   KC_F4,   KC_F5,                      KC_F6,    KC_F7,    KC_F8,   KC_F9,   KC_F10,  KC_F11,
+    _______,  KC_MINS, KC_PPLS,  KC_EQL,  BR_LCBR, BR_RCBR,                    BR_LBRC,  BR_RBRC,  _______, BR_BSLS, BR_PIPE, KC_F12,
+    _______,  BR_EXLM, BR_AT,    BR_HASH, BR_DLR,  BR_PERC,                    KC_H,     KC_J,     KC_K,    KC_L,    BR_CCED, BR_TILD,
+    _______,  KC_Z,    KC_X,     KC_C,    KC_V,    KC_B,    KC_MUTE,   TG(3),  KC_N,     KC_M,     KC_COMM, KC_DOT,  BR_SCLN, BR_SLSH,
+                       KC_LALT,  KC_LCMD, KC_LCTL, TT(1),   KC_SPC,    KC_ENT, TT(2),    KC_DEL,   KC_RCTL, KC_APP
+),
+
+/*
+ * Layout navegação
+ * ,-----------------------------------------.                    ,-----------------------------------------.
+ * | ESC  |   1  |   2  |   3  |   4  |   5  |                    |   6  |   7  |   8  |   9  |   0  | Bspc |
+ * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
+ * | '    |  Ins | PrtSc| Appl |   R  |   T  |                    |   Y  | Home |  Up  | PgUp |   P  |  ´   |
+ * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
+ * | Tab  |   A  |   S  |   D  | LCTL | Caps |-------.    ,-------|   H  | Left | Down | Right|  Del |  ~   |
+ * |------+------+------+------+------+------|  Mute |    | Numpad|------+------+------+------+------+------|
+ * |LShift|      |      |      |      |   B  |-------|    |-------|   N  | End  |      | PgDn |   ;  | /    |
+ * `-----------------------------------------/       /     \      \-----------------------------------------'
+ *            | LALT | LCMD | LCTL | TT 1 | /Space  /       \Enter \  | TT 2 | Del  | RCTL | APPL |
+ *            |      |      |      |      |/       /         \      \ |      |      |      |      |
+ *            `-----------------------------------'           '------''---------------------------'
+ */
+
+[_NAVI] = LAYOUT(
+    _______,  _______, KC_F2,    KC_F3,   KC_F4,   KC_F5,                      KC_F6,    KC_F7,    KC_F8,   KC_F9,   KC_F10,  KC_BSPC,
+    _______,  KC_INS,  KC_PSCR,  KC_APP,  BR_LCBR, BR_RCBR,                    BR_LBRC,  KC_HOME,  KC_UP,   KC_PGUP, BR_PIPE, KC_F12,
+    _______,  BR_EXLM, BR_AT,    BR_HASH, KC_LCTL, KC_CAPS,                    KC_H,     KC_LEFT,  KC_DOWN, KC_RGHT, KC_DEL,  BR_TILD,
+    _______,  _______, _______,  _______, _______, KC_B,    KC_MUTE,   TG(3),  KC_N,     KC_END,   _______, KC_PGDN, BR_SCLN, BR_SLSH,
+                       KC_LALT,  KC_LCMD, KC_LCTL, TT(1),   KC_SPC,    KC_ENT, TT(2),    KC_DEL,   KC_RCTL, KC_APP
+),
+
+/*
+ * Layout teclado numérico + controle dos LEDs
+ * ,-----------------------------------------.                    ,-----------------------------------------.
+ * | ESC  |   1  |   2  |   3  |   4  |   5  |                    |   6  |      |   /  |   *  |   -  | Bspc |
+ * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
+ * |On/Off| Mode+| Mode-|      |      |   T  |                    |   Y  |   7  |   8  |   9  |   +  |  ´   |
+ * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
+ * | Tab  | Hue+ | Hue- | Brgt+| Brgt-| Caps |-------.    ,-------|   H  |   4  |   5  |   6  |   .  |  ~   |
+ * |------+------+------+------+------+------|  Mute |    | Numpad|------+------+------+------+------+------|
+ * |LShift| Sat+ | Sat- | Spd+ | Spd- |   B  |-------|    |-------|   N  |   1  |   2  |   3  |  Ent | /    |
+ * `-----------------------------------------/       /     \      \-----------------------------------------'
+ *            | LALT | LCMD | LCTL | TT 1 | /Space  /       \Enter \  | TT 2 |   0  |   0  |   ,  |
+ *            |      |      |      |      |/       /         \      \ |      |      |      |      |
+ *            `-----------------------------------'           '------''---------------------------'
+ */
+
+[_RGB] = LAYOUT(
+    _______,  _______, _______,  _______, _______, KC_F5,                      KC_F6,    _______,  KC_PSLS, KC_PAST, KC_PMNS, _______,
+    RGB_TOG,  RGB_MOD, RGB_RMOD, _______, _______, BR_RCBR,                    BR_LBRC,  KC_P7,    KC_P8,   KC_P9,   KC_PPLS, KC_F12,
+    _______,  RGB_HUI, RGB_HUD,  RGB_VAI, RGB_VAD, KC_CAPS,                    KC_H,     KC_P4,    KC_P5,   KC_P6,   BR_PDOT, BR_TILD,
+    _______,  RGB_SAI, RGB_SAD,  RGB_SPI, RGB_SPD, KC_B,    KC_MUTE,   TG(3),  KC_N,     KC_P1,    KC_P2,   KC_P3,   KC_PENT, BR_SLSH,
+                       KC_LALT,  KC_LCMD, KC_LCTL, TT(1),   KC_SPC,    KC_ENT, TT(2),    KC_P0,    KC_P0,   BR_PCMM
+)
+
+};
+
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
+[_BASE] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_WH_L, KC_WH_R) },
+[_SYMB] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_WH_L, KC_WH_R) },
+[_NAVI] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_WH_L, KC_WH_R) },
+[_RGB] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_WH_L, KC_WH_R) }
+};
+#endif
