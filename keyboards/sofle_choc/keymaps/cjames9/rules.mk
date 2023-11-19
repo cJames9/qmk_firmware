@@ -1,7 +1,9 @@
-ENCODER_MAP_ENABLE = yes
-VIA_ENABLE = yes
-
-# Reduce compiled size
-MOUSEKEY_ENABLE = no
-SPACE_CADET_ENABLE = no
-GRAVE_ESC_ENABLE = no
+ENCODER_MAP_ENABLE 	= yes
+VIA_ENABLE 			= yes   # Configuring keyboard with VIA
+MOUSEKEY_ENABLE 	= yes
+SPACE_CADET_ENABLE 	= no
+GRAVE_ESC_ENABLE 	= no
+OLED_DRIVER_ENABLE  = yes   # 128X32 OLED Screen
+LTO_ENABLE          = yes   # Link Time Optimization
+MIDI_ENABLE         = no    # MIDI controls
+WPM_ENABLE          = yes   # WPM Calculation

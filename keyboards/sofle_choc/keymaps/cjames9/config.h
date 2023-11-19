@@ -29,3 +29,5 @@
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 100  // limits maximum brightness of LEDs (max 255). Higher may cause the controller to crash.
 
 #define TAPPING_TOGGLE 3
+
+//#define OLED_FONT_H "keyboards/sofle_choc/keymaps/cjames9/glcdfont.c"
