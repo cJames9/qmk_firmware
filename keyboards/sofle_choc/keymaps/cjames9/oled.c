@@ -4,9 +4,6 @@
 #pragma once
 
 #if defined(OLED_DRIVER_ENABLE) && defined(WPM_ENABLE)
-char wpm_str[12];
-char hsv_str[18];
-char mod_str[12];
 char keylog_str[24] = {};
 uint16_t wpm_graph_timer = 0;
 static uint32_t oled_timer = 0;
@@ -16,11 +13,11 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 }
 
 void oled_render_separator(void) {
-    oled_write_ln("_____", false);
+    oled_write("_____", false);
 }
 
 void oled_render_space(void) {
-    oled_write_ln("     ", false);
+    oled_write("     ", false);
 }
 
 void oled_render_layer_state(void) {
@@ -64,14 +61,14 @@ void oled_render_keylog(void) {
     oled_write(keylog_str, false);
 }
 
-void oled_render_hsv(void) {
-    sprintf(hsv_str, "h:%3ds:%3dv:%3d",
-        rgb_matrix_get_hue(),
-        rgb_matrix_get_sat(),
-        rgb_matrix_get_val()
-    );
-    oled_write(hsv_str, false);
-}
+//void oled_render_hsv(void) {
+//    sprintf(hsv_str, "h:%3ds:%3dv:%3d",
+//        rgb_matrix_get_hue(),
+//        rgb_matrix_get_sat(),
+//        rgb_matrix_get_val()
+//    );
+//    oled_write(hsv_str, false);
+//}
 
 void oled_render_keymods(uint8_t led_usb_state) {
     sprintf(mod_str, "num %scap %s",
@@ -199,29 +196,30 @@ void oled_render_slave(void) {
     oled_render_kapi_logo();
 }
 
-void oled_task_user(void) {
-    if (timer_elapsed32(oled_timer) > 60000 && timer_elapsed32(oled_timer) < 80000) {
+bool oled_task_user(void) {
+    /*if (timer_elapsed32(oled_timer) > 60000 && timer_elapsed32(oled_timer) < 80000) {
         // 1min
         oled_render_idle();
-        return;
+        return false;
     }
     else if (timer_elapsed32(oled_timer) > 80000) {
         // 1min30
         oled_off();
         rgb_matrix_disable();
-        return;
+        return false;
     }
     else {
         if (!is_oled_on()) {
             oled_on();
             rgb_matrix_enable();
-        }
+        }*/
 
         if (is_keyboard_master()) {
             oled_render_master();
         } else {
             oled_render_slave();
         }
-    }
+		return false;
+    //}
 }
 #endif

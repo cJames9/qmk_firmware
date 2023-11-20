@@ -30,4 +30,3 @@
 
 #define TAPPING_TOGGLE 3
 
-//#define OLED_FONT_H "keyboards/sofle_choc/keymaps/cjames9/glcdfont.c"
