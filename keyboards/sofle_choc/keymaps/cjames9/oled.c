@@ -1,12 +1,26 @@
 // Copied and adapted from laosteven's Corne keymap
 // https://github.com/laosteven/fluffy-octo-eureka
 
-#pragma once
+//#pragma once
 
-#if defined(OLED_DRIVER_ENABLE) && defined(WPM_ENABLE)
+#include QMK_KEYBOARD_H
+
+#include <stdio.h>
+
+enum layer_names {
+  _BASE = 0,
+  _SYMB,
+  _NAVI,
+  _NUM
+};
+
+#ifdef OLED_ENABLE //&& defined(WPM_ENABLE)
+char wpm_str[12];
+char buf[30];
+char mod_str[12];
 char keylog_str[24] = {};
 uint16_t wpm_graph_timer = 0;
-static uint32_t oled_timer = 0;
+// static uint32_t oled_timer = 0;
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return OLED_ROTATION_270;
@@ -54,26 +68,34 @@ void set_keylog(uint16_t keycode, keyrecord_t *record) {
         keycode);
 }
 
-void oled_render_keylog(void) {
+static void oled_render_keylog(void) {
     if (strlen(keylog_str) == 0) {
         snprintf(keylog_str, sizeof(keylog_str), "[MAT] 0x0 [KYC] 000 ");
     }
     oled_write(keylog_str, false);
 }
 
-//void oled_render_hsv(void) {
-//    sprintf(hsv_str, "h:%3ds:%3dv:%3d",
-//        rgb_matrix_get_hue(),
-//        rgb_matrix_get_sat(),
-//        rgb_matrix_get_val()
-//    );
-//    oled_write(hsv_str, false);
-//}
+static void oled_render_hsv(bool full) {
+#ifdef RGB_MATRIX_ENABLE
+  if (rgb_matrix_get_mode() > 1 && rgb_matrix_is_enabled()) {
+      if (full) {
+          snprintf(buf, sizeof(buf), "[LED]M %2d\nH %dS %dV %d",
+                   rgb_matrix_get_mode(),
+                   rgb_matrix_get_hue(),
+                   rgb_matrix_get_sat(),
+                   rgb_matrix_get_val());
+      } else {
+          snprintf(buf, sizeof(buf), "[%2d] ", rgb_matrix_get_mode());
+      }
+      oled_write(buf, false);
+  }
+#endif
+}
 
-void oled_render_keymods(uint8_t led_usb_state) {
+void oled_render_keymods(led_t led_state) {
     sprintf(mod_str, "num %scap %s",
-        led_usb_state & (1 << USB_LED_NUM_LOCK) ? "+" : "-",
-        led_usb_state & (1 << USB_LED_CAPS_LOCK) ? "+" : "-"
+        led_state.num_lock ? "+" : "-",
+        led_state.caps_lock ? "+" : "-"
     );
     oled_write(mod_str, false);
 }
@@ -97,7 +119,7 @@ static void oled_render_wpm_graph(void) {
     }
     if(timer_elapsed(wpm_graph_timer) > 500) {
         wpm_graph_timer = timer_read();
-        bar_height = get_current_wpm() / 20;
+        bar_height = get_current_wpm() / 16;
 
         oled_pan(false);
         bar_count++;
@@ -177,7 +199,7 @@ void oled_render_master(void) {
     oled_render_keylog();
     oled_render_separator();
 
-    oled_render_keymods(host_keyboard_leds());
+    oled_render_keymods(host_keyboard_led_state());
     oled_render_separator();
 
     oled_render_wpm();
@@ -186,11 +208,12 @@ void oled_render_master(void) {
 
 void oled_render_slave(void) {
     oled_render_crkbd_logo();
-    oled_write("crkbd", false);
+    oled_write("sofle", false);
+    oled_write("choc ", false);
     oled_render_separator();
 
-    //oled_render_hsv();
-	oled_render_space();
+    oled_render_hsv(true);
+	//oled_render_space();
     oled_render_separator();
 
     oled_render_kapi_logo();

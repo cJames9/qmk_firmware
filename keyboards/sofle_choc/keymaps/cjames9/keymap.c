@@ -84,7 +84,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * | Tab  |      |      |      | LCTL | Caps |-------.    ,-------|      | Left | Down | Right|  Del |  ~   |
  * |------+------+------+------+------+------|  Mute |    | Numpad|------+------+------+------+------+------|
- * |LShift|      |      |      |      |      |-------|    |-------|      | End  |      | PgDn |   ;  |RShift|
+ * |LShift|      |      |      |      |      |-------|    |-------|   M  | End  |      | PgDn |   ;  |RShift|
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *            | LALT | LCMD | TT 1 | LCTL/| /Space  /       \Enter \  | TT 2 | Del  | APPL |  /   |
  *            |      |      |      | Space|/       /         \      \ |      |      |      |      |
@@ -95,7 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,  KC_F1,   KC_F2,    KC_F3,   KC_F4,   KC_F5,                             KC_F6,    KC_F7,    KC_F8,   KC_F9,   KC_F10,  KC_BSPC,
     _______,  KC_INS,  KC_PSCR,  KC_APP,  _______, _______,                           _______,  KC_HOME,  KC_UP,   KC_PGUP, _______, KC_F12,
     _______,  _______, _______,  _______, KC_LCTL, KC_CAPS,                           _______,  KC_LEFT,  KC_DOWN, KC_RGHT, KC_DEL,  BR_TILD,
-    _______,  _______, _______,  _______, _______, _______,        KC_MUTE,   TG(3),  _______,  KC_END,   _______, KC_PGDN, BR_SCLN, KC_RSFT,
+    _______,  _______, _______,  _______, _______, _______,        KC_MUTE,   TG(3),  KC_M,     KC_END,   _______, KC_PGDN, BR_SCLN, KC_RSFT,
                        KC_LALT,  KC_LCMD, TT(1),   LCTL_T(KC_SPC), KC_SPC,    KC_ENT, TT(2),    KC_DEL,   KC_APP,  BR_SLSH
 ),
 
