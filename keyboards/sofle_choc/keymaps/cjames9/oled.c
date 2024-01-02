@@ -21,6 +21,9 @@ char mod_str[12];
 char keylog_str[24] = {};
 uint16_t wpm_graph_timer = 0;
 // static uint32_t oled_timer = 0;
+static uint32_t anim_timer = 0;
+#define ANIM_SIZE 512
+#define ANIM_FRAME 300
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return OLED_ROTATION_270;
@@ -79,13 +82,13 @@ static void oled_render_hsv(bool full) {
 #ifdef RGB_MATRIX_ENABLE
   if (rgb_matrix_get_mode() > 1 && rgb_matrix_is_enabled()) {
       if (full) {
-          snprintf(buf, sizeof(buf), "[LED]M %2d\nH %dS %dV %d",
+          snprintf(buf, sizeof(buf), "[LED]M %3dH %3dS %3dV %3d",
                    rgb_matrix_get_mode(),
                    rgb_matrix_get_hue(),
                    rgb_matrix_get_sat(),
                    rgb_matrix_get_val());
       } else {
-          snprintf(buf, sizeof(buf), "[%2d] ", rgb_matrix_get_mode());
+          snprintf(buf, sizeof(buf), "[%3d] ", rgb_matrix_get_mode());
       }
       oled_write(buf, false);
   }
@@ -119,7 +122,7 @@ static void oled_render_wpm_graph(void) {
     }
     if(timer_elapsed(wpm_graph_timer) > 500) {
         wpm_graph_timer = timer_read();
-        bar_height = get_current_wpm() / 16;
+        bar_height = get_current_wpm() / 10;
 
         oled_pan(false);
         bar_count++;
@@ -181,6 +184,24 @@ void oled_render_kapi_logo(void) {
     oled_write_P(font_kapi_logo[get_current_wpm() % 2], false);
 };
 
+void oled_render_music_bars(void) {
+    static uint8_t current_frame = 0;
+
+    static const char PROGMEM music_bars[3][16] = {
+        {0x8f, 0x90, 0x91, 0x92, 0x93, 0xaf, 0xb0, 0xb1, 0xb2, 0xb3, 0xcf, 0xd0, 0xd1, 0xd2, 0xd3, 0},
+        {0x95, 0x96, 0x97, 0x98, 0x99, 0xb5, 0xb6, 0xb7, 0xb8, 0xb9, 0xd5, 0xd6, 0xd7, 0xd8, 0xd9, 0},
+        {0x9b, 0x9c, 0x9d, 0x9e, 0x9f, 0xbb, 0xbc, 0xbd, 0xbe, 0xbf, 0xdb, 0xdc, 0xdd, 0xde, 0xdf, 0}
+    };
+
+    if (timer_elapsed32(anim_timer) > ANIM_FRAME) {
+        anim_timer = timer_read32();
+        const char* frame = music_bars[current_frame];
+        oled_write_P(frame, false);
+        current_frame = (current_frame + 1) % 3;
+    }
+}
+
+
 void oled_render_idle(void) {
     oled_render_space();
     oled_render_space();
@@ -216,7 +237,7 @@ void oled_render_slave(void) {
 	//oled_render_space();
     oled_render_separator();
 
-    oled_render_kapi_logo();
+    oled_render_music_bars();
 }
 
 bool oled_task_user(void) {

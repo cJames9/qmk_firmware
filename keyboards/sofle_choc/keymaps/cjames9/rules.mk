@@ -8,6 +8,7 @@ OLED_ENABLE			= yes
 LTO_ENABLE          = yes   # Link Time Optimization
 MIDI_ENABLE         = no    # MIDI controls
 WPM_ENABLE          = yes   # WPM Calculation
+CAPS_WORD_ENABLE 	= yes   # LShift + RShift enables caps for a single word
 
 ifeq ($(strip $(OLED_ENABLE)), yes)
     SRC += oled.c
