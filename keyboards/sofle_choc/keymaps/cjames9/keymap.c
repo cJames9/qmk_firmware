@@ -17,7 +17,10 @@
 
 #include "sendstring_brazilian_abnt2.h"
 #include "keymap_brazilian_abnt2.h"
-//#include "oled.c"
+
+//#ifdef CONSOLE_ENABLE
+#include "print.h"
+//#endif
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -25,6 +28,57 @@
 #define _SYMB 1
 #define _NAVI 2
 #define _NUM  3
+
+enum custom_keycodes {
+    M_CUT = SAFE_RANGE,
+    M_COPY,
+    M_PASTE,
+};
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    #ifdef CONSOLE_ENABLE
+        const bool is_combo = record->event.type == COMBO_EVENT;
+        uprintf("0x%04X,%u,%u,%u,",
+            keycode,
+            is_combo ? 254 : record->event.key.row,
+            is_combo ? 254 : record->event.key.col,
+            get_highest_layer(layer_state)
+            );
+        uprint_bin4(record->event.pressed);
+        uprintf(",0x%02X,0x%02X,%u\n",
+            get_mods(),
+            get_oneshot_mods(),
+            record->tap.count
+            );
+    #endif
+    switch (keycode) {
+    case M_CUT:
+        if (record->event.pressed) {
+            // when keycode M_CUT is pressed
+            SEND_STRING(SS_LCTL("x"));
+        } else {
+            // when keycode M_CUT is released
+        }
+        break;
+    case M_COPY:
+        if (record->event.pressed) {
+            // when keycode M_COPY is pressed
+            SEND_STRING(SS_LCTL("c"));
+        } else {
+            // when keycode M_COPY is released
+        }
+        break;
+    case M_PASTE:
+        if (record->event.pressed) {
+            // when keycode M_PASTE is pressed
+            SEND_STRING(SS_LCTL("v"));
+        } else {
+            // when keycode M_PASTE is released
+        }
+        break;
+    }
+    return true;
+}
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
@@ -60,7 +114,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * | Tab  |   !  |   @  |   #  |   $  |   %  |-------.    ,-------|   [  |   ]  |   -  |   +  |   =  |  ~   |
  * |------+------+------+------+------+------|  Mute |    | Numpad|------+------+------+------+------+------|
- * |LShift|      |      |      |      |      |-------|    |-------|      |   N  |   _  |   .  |RSft/;| TG 2 |
+ * |LShift|      | Cut  | Copy | Paste|      |-------|    |-------|      |   N  |   _  |   .  |RSft/;| TG 2 |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *            | LALT | LCMD | TT 1 | LCTL/| /Space  /       \Enter \  | TT 2 | Del  | APPL |  /   |
  *            |      |      |      | Space|/       /         \      \ |      |      |      |      |
@@ -71,7 +125,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,  KC_F1,   KC_F2,    KC_F3,   KC_F4,   KC_F5,                             KC_F6,    KC_F7,    KC_F8,   KC_F9,   KC_F10,  KC_F11,
     _______,  _______, _______,  _______, _______, _______,                           BR_LCBR,  BR_RCBR,  _______, BR_BSLS, BR_PIPE, KC_F12,
     _______,  BR_EXLM, BR_AT,    BR_HASH, BR_DLR,  BR_PERC,                           BR_LBRC,  BR_RBRC,  KC_MINS, KC_PPLS, KC_EQL,  BR_TILD,
-    KC_LSFT,  _______, _______,  _______, _______, _______,        KC_MUTE,   TG(3),  _______,  KC_N,     BR_UNDS, KC_DOT,  RSFT_T(BR_SCLN), TG(2),
+    KC_LSFT,  _______, M_CUT,    M_COPY,  M_PASTE, _______,        KC_MUTE,   TG(3),  _______,  KC_N,     BR_UNDS, KC_DOT,  RSFT_T(BR_SCLN), TG(2),
                        KC_LALT,  KC_LCMD, MO(1),   LCTL_T(KC_SPC), KC_SPC,    KC_ENT, MO(2),    KC_DEL,   KC_APP,  BR_SLSH
 ),
 
@@ -84,7 +138,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * | Tab  | Prev | Play | Next | LCTL | Caps |-------.    ,-------|      | Left | Down | Right|  Del |  ~   |
  * |------+------+------+------+------+------|  Mute |    | Numpad|------+------+------+------+------+------|
- * |LShift|      |      |      |      |      |-------|    |-------|      | End  |      | PgDn |RSft/;| TG 2 |
+ * |LShift|      | Cut  | Copy | Paste|      |-------|    |-------|      | End  |      | PgDn |RSft/;| TG 2 |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *            | LALT | LCMD | TT 1 | LCTL/| /Space  /       \Enter \  | TT 2 | Del  | APPL |  /   |
  *            |      |      |      | Space|/       /         \      \ |      |      |      |      |
@@ -95,7 +149,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,  KC_F1,   KC_F2,    KC_F3,   KC_F4,   KC_F5,                             KC_F6,    KC_F7,    KC_F8,   KC_F9,   KC_F10,  KC_BSPC,
     _______,  KC_INS,  KC_PSCR,  KC_APP,  _______, _______,                           _______,  KC_HOME,  KC_UP,   KC_PGUP, _______, KC_F12,
     _______,  KC_MPRV, KC_MPLY,  KC_MNXT, KC_LCTL, KC_CAPS,                           _______,  KC_LEFT,  KC_DOWN, KC_RGHT, KC_DEL,  BR_TILD,
-    _______,  _______, _______,  _______, _______, _______,        KC_MUTE,   TG(3),  _______,  KC_END,   _______, KC_PGDN, RSFT_T(BR_SCLN), TG(2),
+    _______,  _______, M_CUT,    M_COPY,  M_PASTE, _______,        KC_MUTE,   TG(3),  _______,  KC_END,   _______, KC_PGDN, RSFT_T(BR_SCLN), TG(2),
                        KC_LALT,  KC_LCMD, MO(1),   LCTL_T(KC_SPC), KC_SPC,    KC_ENT, MO(2),    KC_DEL,   KC_APP,  BR_SLSH
 ),
 

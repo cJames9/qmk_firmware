@@ -3,6 +3,8 @@
 
 //#pragma once
 
+#include "oled_driver.h"
+#include "quantum.h"
 #include QMK_KEYBOARD_H
 
 #include <stdio.h>
@@ -14,7 +16,7 @@ enum layer_names {
   _NUM
 };
 
-#ifdef OLED_ENABLE //&& defined(WPM_ENABLE)
+#ifdef OLED_ENABLE
 char wpm_str[12];
 char buf[30];
 char mod_str[12];
@@ -59,7 +61,8 @@ void oled_render_layer_state(void) {
 
 void set_keylog(uint16_t keycode, keyrecord_t *record) {
     if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) ||
-        (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX)) {
+        (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX) ||
+        (keycode >= QK_MODS && keycode <= QK_MODS_MAX)) {
         keycode = keycode & 0xFF;
     } else if (keycode > 0xFF) {
         keycode = 0;
@@ -115,6 +118,7 @@ static void oled_render_wpm_graph(void) {
     static uint8_t bar_count = 0;
     uint8_t bar_height = 0;
     uint8_t bar_segment = 0;
+    uint8_t oled_lines = oled_max_lines();
 
     if (wpm_graph_timer == 0) {
         wpm_graph_timer = timer_read();
@@ -122,49 +126,61 @@ static void oled_render_wpm_graph(void) {
     }
     if(timer_elapsed(wpm_graph_timer) > 500) {
         wpm_graph_timer = timer_read();
-        bar_height = get_current_wpm() / 10;
+
+        bar_height = get_current_wpm() / 6;
+        if(bar_height > (OLED_DISPLAY_WIDTH / oled_lines * 4)) {
+            bar_height = OLED_DISPLAY_WIDTH / oled_lines * 4;
+        }
 
         oled_pan(false);
         bar_count++;
-        for (uint8_t i = (OLED_DISPLAY_WIDTH / 8); i > 0; i--) {
-            switch (bar_height) {
-                case 0:
-                    bar_segment = 128;
-                    break;
-
-                case 1:
-                    bar_segment = 128;
-                    break;
-
-                case 2:
-                    bar_segment = 192;
-                    break;
-
-                case 3:
-                    bar_segment = 224;
-                    break;
-
-                case 4:
-                    bar_segment = 240;
-                    break;
-
-                case 5:
-                    bar_segment = 248;
-                    break;
-
-                case 6:
-                    bar_segment = 252;
-                    break;
-
-                case 7:
+        for (uint8_t i = oled_lines; i > (oled_lines - 4); i--) {
+            if (bar_height > 7) {
+                if (i % 2 == 1 && bar_count % 3 == 0)
                     bar_segment = 254;
-                    break;
-            }
+		        else
+		            bar_segment = 255;
+		        bar_height -= 8;
+	        } else {
+
+                switch (bar_height) {
+                    case 0:
+                        bar_segment = 0;
+                        break;
+
+                    case 1:
+                        bar_segment = 128;
+                        break;
+
+                    case 2:
+                        bar_segment = 192;
+                        break;
+
+                    case 3:
+                        bar_segment = 224;
+                        break;
+
+                    case 4:
+                        bar_segment = 240;
+                        break;
+
+                    case 5:
+                        bar_segment = 248;
+                        break;
+
+                    case 6:
+                        bar_segment = 252;
+                        break;
+
+                    case 7:
+                        bar_segment = 254;
+                        break;
+                }
             bar_height = 0;
 
             if (i % 2 == 1 && bar_count % 3 == 0)
                 bar_segment++;
-
+            }
             oled_write_raw_byte(bar_segment, (i-1) * OLED_DISPLAY_HEIGHT);
         }
     }
