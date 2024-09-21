@@ -24,10 +24,14 @@
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
-#define _BASE 0
-#define _SYMB 1
-#define _NAVI 2
-#define _NUM  3
+enum layers {
+    _BASE = 0,
+    _GAME,
+    _SYMB,
+    _NAVI,
+    _TNAV,
+    _NUM
+};
 
 enum custom_keycodes {
     M_CUT = SAFE_RANGE,
@@ -90,9 +94,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * | Tab  |   A  |   S  |   D  |   F  |   G  |-------.    ,-------|   H  |   J  |   K  |   L  |   Ç  |  ~   |
  * |------+------+------+------+------+------|  Mute |    | Numpad|------+------+------+------+------+------|
- * |LShift|   Z  |   X  |   C  |   V  |   B  |-------|    |-------|   N  |   M  |   ,  |   .  |RSft/;| TG 2 |
+ * |LShift|   Z  |   X  |   C  |   V  |   B  |-------|    |-------|   N  |   M  |   ,  |   .  |   ;  |RShift|
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *            | LALT | LCMD | TT 1 | LCTL/| /Space  /       \Enter \  | TT 2 | Del  | APPL |  /   |
+ *            | LALT | LCMD | MO 2 | LCTL/| /Space  /       \Enter \  | MO 3 | Del  | APPL |  /   |
  *            |      |      |      | Space|/       /         \      \ |      |      |      |      |
  *            `-----------------------------------'           '------''---------------------------'
  */
@@ -101,8 +105,32 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_ESC,   KC_1,    KC_2,     KC_3,    KC_4,    KC_5,                              KC_6,     KC_7,     KC_8,    KC_9,    KC_0,    KC_BSPC,
     BR_QUOT,  KC_Q,    KC_W,     KC_E,    KC_R,    KC_T,                              KC_Y,     KC_U,     KC_I,    KC_O,    KC_P,    BR_ACUT,
     KC_TAB,   KC_A,    KC_S,     KC_D,    KC_F,    KC_G,                              KC_H,     KC_J,     KC_K,    KC_L,    BR_CCED, BR_TILD,
-    KC_LSFT,  KC_Z,    KC_X,     KC_C,    KC_V,    KC_B,           KC_MUTE,   TG(3),  KC_N,     KC_M,     KC_COMM, KC_DOT,  RSFT_T(BR_SCLN), TG(2),
-                       KC_LALT,  KC_LCMD, MO(1),   LCTL_T(KC_SPC), KC_SPC,    KC_ENT, MO(2),    KC_DEL,   KC_APP,  BR_SLSH
+    KC_LSFT,  KC_Z,    KC_X,     KC_C,    KC_V,    KC_B,           KC_MUTE,   TG(5),  KC_N,     KC_M,     KC_COMM, KC_DOT,  BR_SCLN, KC_RSFT,
+                       KC_LALT,  KC_LCMD, MO(2),   LCTL_T(KC_SPC), KC_SPC,    KC_ENT, MO(3),    KC_DEL,   KC_APP,  BR_SLSH
+),
+
+/*
+ * Layout para jogos: QWERTY do lado esquerdo e setas do lado direito
+ * ,-----------------------------------------.                    ,-----------------------------------------.
+ * | ESC  |   1  |   2  |   3  |   4  |   5  |                    |   6  |   7  |   8  |   9  |   0  | Bspc |
+ * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
+ * | '    |   Q  |   W  |   E  |   R  |   T  |                    |   Y  |   U  |   I  |   O  |   P  |  ´   |
+ * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
+ * | Tab  |   A  |   S  |   D  |   F  |   G  |-------.    ,-------|   H  |   J  |   K  |   L  |   Ç  |  ~   |
+ * |------+------+------+------+------+------|  Mute |    | Numpad|------+------+------+------+------+------|
+ * |LShift|   Z  |   X  |   C  |   V  |   B  |-------|    |-------|   N  |   M  |   ,  |   .  |RSft/;| TG 2 |
+ * `-----------------------------------------/       /     \      \-----------------------------------------'
+ *            | LALT | LCMD | MO 2 | LCTL | /Space  /       \Enter \  | MO 3 | Del  | APPL |  /   |
+ *            |      |      |      |      |/       /         \      \ |      |      |      |      |
+ *            `-----------------------------------'           '------''---------------------------'
+ */
+
+[_GAME] = LAYOUT(
+    KC_ESC,   KC_1,    KC_2,     KC_3,    KC_4,    KC_5,                       KC_6,     KC_7,     KC_8,    KC_9,    KC_0,    KC_BSPC,
+    BR_QUOT,  KC_Q,    KC_W,     KC_E,    KC_R,    KC_T,                       _______,  KC_HOME,  KC_UP,   KC_PGUP, _______, _______,
+    KC_TAB,   KC_A,    KC_S,     KC_D,    KC_F,    KC_G,                       _______,  KC_LEFT,  KC_DOWN, KC_RGHT, KC_DEL,  _______,
+    KC_LSFT,  KC_Z,    KC_X,     KC_C,    KC_V,    KC_B,    KC_MUTE,   TG(5),  _______,  KC_END,   _______, KC_PGDN, _______, KC_RSFT,
+                       KC_LALT,  KC_LCMD, MO(2),   KC_LCTL, KC_SPC,    KC_ENT, MO(3),    KC_DEL,   KC_APP,  BR_SLSH
 ),
 
 /*
@@ -114,9 +142,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * | Tab  |   !  |   @  |   #  |   $  |   %  |-------.    ,-------|   [  |   ]  |   -  |   +  |   =  |  ~   |
  * |------+------+------+------+------+------|  Mute |    | Numpad|------+------+------+------+------+------|
- * |LShift|      | Cut  | Copy | Paste|      |-------|    |-------|      |   N  |   _  |   .  |RSft/;| TG 2 |
+ * |LShift|      | Cut  | Copy | Paste|      |-------|    |-------|      |   N  |   _  |   .  |   ;  |RShift|
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *            | LALT | LCMD | TT 1 | LCTL/| /Space  /       \Enter \  | TT 2 | Del  | APPL |  /   |
+ *            | LALT | LCMD | MO 2 | LCTL/| /Space  /       \Enter \  | MO 3 | Del  | APPL |  /   |
  *            |      |      |      | Space|/       /         \      \ |      |      |      |      |
  *            `-----------------------------------'           '------''---------------------------'
  */
@@ -125,8 +153,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,  KC_F1,   KC_F2,    KC_F3,   KC_F4,   KC_F5,                             KC_F6,    KC_F7,    KC_F8,   KC_F9,   KC_F10,  KC_F11,
     _______,  _______, _______,  _______, _______, _______,                           BR_LCBR,  BR_RCBR,  _______, BR_BSLS, BR_PIPE, KC_F12,
     _______,  BR_EXLM, BR_AT,    BR_HASH, BR_DLR,  BR_PERC,                           BR_LBRC,  BR_RBRC,  KC_MINS, KC_PPLS, KC_EQL,  BR_TILD,
-    KC_LSFT,  _______, M_CUT,    M_COPY,  M_PASTE, _______,        KC_MUTE,   TG(3),  _______,  KC_N,     BR_UNDS, KC_DOT,  RSFT_T(BR_SCLN), TG(2),
-                       KC_LALT,  KC_LCMD, MO(1),   LCTL_T(KC_SPC), KC_SPC,    KC_ENT, MO(2),    KC_DEL,   KC_APP,  BR_SLSH
+    KC_LSFT,  _______, M_CUT,    M_COPY,  M_PASTE, _______,        KC_MUTE,   TG(5),  _______,  KC_N,     BR_UNDS, KC_DOT,  BR_SCLN, KC_RSFT,
+                       KC_LALT,  KC_LCMD, MO(2),   LCTL_T(KC_SPC), KC_SPC,    KC_ENT, MO(3),    KC_DEL,   KC_APP,  BR_SLSH
 ),
 
 /*
@@ -138,9 +166,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * | Tab  | Prev | Play | Next | LCTL | Caps |-------.    ,-------|      | Left | Down | Right|  Del |  ~   |
  * |------+------+------+------+------+------|  Mute |    | Numpad|------+------+------+------+------+------|
- * |LShift|      | Cut  | Copy | Paste|      |-------|    |-------|      | End  |      | PgDn |RSft/;| TG 2 |
+ * |LShift|      | Cut  | Copy | Paste|      |-------|    |-------| TG 1 | End  |      | PgDn |RSft/;| TG 5 |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *            | LALT | LCMD | TT 1 | LCTL/| /Space  /       \Enter \  | TT 2 | Del  | APPL |  /   |
+ *            | LALT | LCMD | MO 2 | LCTL/| /Space  /       \Enter \  | MO 3 | Del  | APPL |  /   |
  *            |      |      |      | Space|/       /         \      \ |      |      |      |      |
  *            `-----------------------------------'           '------''---------------------------'
  */
@@ -149,8 +177,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,  KC_F1,   KC_F2,    KC_F3,   KC_F4,   KC_F5,                             KC_F6,    KC_F7,    KC_F8,   KC_F9,   KC_F10,  KC_BSPC,
     _______,  KC_INS,  KC_PSCR,  KC_APP,  _______, _______,                           _______,  KC_HOME,  KC_UP,   KC_PGUP, _______, KC_F12,
     _______,  KC_MPRV, KC_MPLY,  KC_MNXT, KC_LCTL, KC_CAPS,                           _______,  KC_LEFT,  KC_DOWN, KC_RGHT, KC_DEL,  BR_TILD,
-    _______,  _______, M_CUT,    M_COPY,  M_PASTE, _______,        KC_MUTE,   TG(3),  _______,  KC_END,   _______, KC_PGDN, RSFT_T(BR_SCLN), TG(2),
-                       KC_LALT,  KC_LCMD, MO(1),   LCTL_T(KC_SPC), KC_SPC,    KC_ENT, MO(2),    KC_DEL,   KC_APP,  BR_SLSH
+    _______,  _______, M_CUT,    M_COPY,  M_PASTE, _______,        KC_MUTE,   TG(5),  TG(1),    KC_END,   _______, KC_PGDN, RSFT_T(BR_SCLN), TG(4),
+                       KC_LALT,  KC_LCMD, MO(2),   LCTL_T(KC_SPC), KC_SPC,    KC_ENT, MO(3),    KC_DEL,   KC_APP,  BR_SLSH
+),
+
+[_TNAV] = LAYOUT(
+    _______,  KC_F1,   KC_F2,    KC_F3,   KC_F4,   KC_F5,                             KC_F6,    KC_F7,    KC_F8,   KC_F9,   KC_F10,  KC_BSPC,
+    _______,  KC_INS,  KC_PSCR,  KC_APP,  _______, _______,                           _______,  KC_HOME,  KC_UP,   KC_PGUP, _______, KC_F12,
+    _______,  KC_MPRV, KC_MPLY,  KC_MNXT, KC_LCTL, KC_CAPS,                           _______,  KC_LEFT,  KC_DOWN, KC_RGHT, KC_DEL,  BR_TILD,
+    _______,  _______, M_CUT,    M_COPY,  M_PASTE, _______,        KC_MUTE,   TG(5),  _______,  KC_END,   _______, KC_PGDN, RSFT_T(BR_SCLN), TG(4),
+                       KC_LALT,  KC_LCMD, MO(2),   LCTL_T(KC_SPC), KC_SPC,    KC_ENT, MO(3),    KC_DEL,   KC_APP,  BR_SLSH
 ),
 
 /*
@@ -164,7 +200,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|  Mute |    | Numpad|------+------+------+------+------+------|
  * |LShift| Sat+ | Sat- | Spd+ | Spd- |      |-------|    |-------|      |   1  |   2  |   3  |  Ent |      |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *            | LALT | LCMD | TT 1 | LCTL/| /Space  /       \Enter \  | TT 2 |   0  |   0  |   ,  |
+ *            | LALT | LCMD | MO 2 | LCTL/| /Space  /       \Enter \  | MO 3 |   0  |   0  |   ,  |
  *            |      |      |      | Space|/       /         \      \ |      |      |      |      |
  *            `-----------------------------------'           '------''---------------------------'
  */
@@ -173,8 +209,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,  _______, _______,  _______, _______, _______,                           _______,  KC_NUM,   KC_PSLS, KC_PAST, KC_PMNS, KC_BSPC,
     RGB_TOG,  RGB_MOD, RGB_RMOD, _______, _______, _______,                           _______,  KC_P7,    KC_P8,   KC_P9,   KC_PPLS, _______,
     _______,  RGB_HUI, RGB_HUD,  RGB_VAI, RGB_VAD, _______,                           _______,  KC_P4,    KC_P5,   KC_P6,   BR_PDOT, _______,
-    _______,  RGB_SAI, RGB_SAD,  RGB_SPI, RGB_SPD, _______,        KC_MUTE,   TG(3),  _______,  KC_P1,    KC_P2,   KC_P3,   KC_PENT, _______,
-                       KC_LALT,  KC_LCMD, MO(1),   LCTL_T(KC_SPC), KC_SPC,    KC_ENT, MO(2),    KC_P0,    KC_P0,   BR_PCMM
+    _______,  RGB_SAI, RGB_SAD,  RGB_SPI, RGB_SPD, _______,        KC_MUTE,   TG(5),  _______,  KC_P1,    KC_P2,   KC_P3,   KC_PENT, _______,
+                       KC_LALT,  KC_LCMD, MO(2),   LCTL_T(KC_SPC), KC_SPC,    KC_ENT, MO(3),    KC_P0,    KC_P0,   BR_PCMM
 )
 
 };
@@ -182,8 +218,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 [_BASE] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_WH_L, KC_WH_R) },
+[_GAME] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_WH_L, KC_WH_R) },
 [_SYMB] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_WH_L, KC_WH_R) },
 [_NAVI] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_WH_L, KC_WH_R) },
+[_TNAV] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_WH_L, KC_WH_R) },
 [_NUM]  = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_WH_L, KC_WH_R) }
 };
 #endif

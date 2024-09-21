@@ -1,5 +1,4 @@
 ENCODER_MAP_ENABLE 	= yes
-VIA_ENABLE 			= yes   # Configuring keyboard with VIA
 MOUSEKEY_ENABLE 	= yes
 SPACE_CADET_ENABLE 	= no
 GRAVE_ESC_ENABLE 	= no

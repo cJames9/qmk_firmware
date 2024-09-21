@@ -11,8 +11,10 @@
 
 enum layer_names {
   _BASE = 0,
+  _GAME,
   _SYMB,
   _NAVI,
+  _TNAV,
   _NUM
 };
 
@@ -44,11 +46,17 @@ void oled_render_layer_state(void) {
         case _BASE:
             oled_write("[QWR]", false);
             break;
+        case _GAME:
+            oled_write("[GAM]", true);
+            break;
         case _SYMB:
             oled_write("[SYM]", true);
             break;
         case _NAVI:
             oled_write("[NAV]", true);
+            break;
+        case _TNAV:
+            oled_write("[TNV]", true);
             break;
         case _NUM:
             oled_write("[NUM]", true);
