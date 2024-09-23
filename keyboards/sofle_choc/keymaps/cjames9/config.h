@@ -27,9 +27,9 @@
 // flash using qmk flash -kb sofle_choc -km cjames9 -e CONVERT_TO=helios -bl uf2-split-right
 #define EE_HANDS
 
-#define RGB_DISABLE_WHEN_USB_SUSPENDED     // turn off effects when suspended
+#define RGB_MATRIX_SLEEP                   // turn off effects when suspended
 #define SPLIT_TRANSPORT_MIRROR             // If LED_MATRIX_KEYPRESSES or LED_MATRIX_KEYRELEASES is enabled, you also will want to enable SPLIT_TRANSPORT_MIRROR
-#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 100  // limits maximum brightness of LEDs (max 255). Higher may cause the controller to crash.
+#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150  // limits maximum brightness of LEDs (max 255). Higher may cause the controller to crash.
 
 #define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
 #define CAPS_WORD_INVERT_ON_SHIFT
@@ -93,3 +93,5 @@
 #define RGB_MATRIX_TYPING_HEATMAP_DECREASE_DELAY_MS 50
 
 #define WPM_LAUNCH_CONTROL
+
+#define DYNAMIC_MACRO_DELAY 100

@@ -9,13 +9,14 @@
 
 #include <stdio.h>
 
-enum layer_names {
-  _BASE = 0,
-  _GAME,
-  _SYMB,
-  _NAVI,
-  _TNAV,
-  _NUM
+enum layers {
+   _BASE = 0,
+   _CLMK,
+   _GAME,
+   _SYMB,
+   _NAVI,
+   _TNAV,
+   _NUM
 };
 
 #ifdef OLED_ENABLE
@@ -46,8 +47,11 @@ void oled_render_layer_state(void) {
         case _BASE:
             oled_write("[QWR]", false);
             break;
+        case _CLMK:
+            oled_write("[CMK]", false);
+            break;
         case _GAME:
-            oled_write("[GAM]", true);
+            oled_write("[GAM]", false);
             break;
         case _SYMB:
             oled_write("[SYM]", true);
@@ -153,7 +157,7 @@ static void oled_render_wpm_graph(void) {
 
                 switch (bar_height) {
                     case 0:
-                        bar_segment = 0;
+                        bar_segment = 128;
                         break;
 
                     case 1:
