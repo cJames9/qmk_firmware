@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "quantum.h"
+#include "v0x_right.h"
 
 void keyboard_pre_init_kb(void) {
     // Set LED IO as outputs
@@ -22,14 +22,10 @@ void keyboard_pre_init_kb(void) {
     keyboard_pre_init_user();
 }
 
-bool shutdown_kb(bool jump_to_bootloader) {
-    if (!shutdown_user(jump_to_bootloader)) {
-        return false;
-    }
+void shutdown_user(void) {
     // Shutdown LEDs
     writePinLow(LED_00);
     writePinLow(LED_01);
-    return true;
 }
 
 layer_state_t layer_state_set_kb(layer_state_t state) {

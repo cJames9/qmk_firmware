@@ -15,8 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
-
 extern const unsigned char font[] PROGMEM;
 
 #define ROW_1 OLED_DISPLAY_WIDTH

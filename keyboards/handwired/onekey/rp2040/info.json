@@ -9,7 +9,7 @@
     "backlight": {
         "pin": "GP25"
     },
-    "ws2812": {
+    "rgblight": {
         "pin": "GP25"
     }
 }

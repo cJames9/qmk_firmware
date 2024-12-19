@@ -14,7 +14,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "quantum.h"
+#include "q4.h"
+
+const matrix_row_t matrix_mask[] = {
+    0b11111111111111,
+    0b11111111111111,
+    0b11111111111111,
+    0b11111111111111,
+    0b11111111101111,
+};
 
 #ifdef DIP_SWITCH_ENABLE
 

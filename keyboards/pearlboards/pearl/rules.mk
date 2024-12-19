@@ -11,6 +11,6 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 AUDIO_ENABLE = yes          # Audio output
 HAPTIC_ENABLE = yes
-HAPTIC_DRIVER = drv2605l
+HAPTIC_DRIVER = DRV2605L
 
 LTO_ENABLE = yes

@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "quantum.h"
+#include "evo70.h"
 #include <stdbool.h>
 #include "matrix.h"
 #include OLED_FONT_H

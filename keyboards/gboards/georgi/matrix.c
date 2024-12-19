@@ -17,10 +17,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "matrix.h"
+#include <stdint.h>
+#include <stdbool.h>
+#include <avr/io.h>
 #include "wait.h"
+#include "action_layer.h"
+#include "print.h"
 #include "debug.h"
 #include "util.h"
-#include "georgi.h"
+#include "keymap_steno.h"
+#include QMK_KEYBOARD_H
 
 #ifndef DEBOUNCE
 #   define DEBOUNCE	5
@@ -254,7 +260,14 @@ static matrix_row_t read_cols(uint8_t row)
             return 0;
         } else {
             uint8_t data = 0;
-            mcp23018_status = i2c_readReg(I2C_ADDR, GPIOB, &data, 1, ERGODOX_EZ_I2C_TIMEOUT);
+            mcp23018_status = i2c_start(I2C_ADDR_WRITE, ERGODOX_EZ_I2C_TIMEOUT);    if (mcp23018_status) goto out;
+            mcp23018_status = i2c_write(GPIOB, ERGODOX_EZ_I2C_TIMEOUT);             if (mcp23018_status) goto out;
+            mcp23018_status = i2c_start(I2C_ADDR_READ, ERGODOX_EZ_I2C_TIMEOUT);     if (mcp23018_status) goto out;
+            mcp23018_status = i2c_read_nack(ERGODOX_EZ_I2C_TIMEOUT);                if (mcp23018_status < 0) goto out;
+            data = ~((uint8_t)mcp23018_status);
+            mcp23018_status = I2C_STATUS_SUCCESS;
+        out:
+            i2c_stop();
 
 #ifdef DEBUG_MATRIX
             if (data != 0x00) xprintf("I2C: %d\n", data);
@@ -297,9 +310,11 @@ static void select_row(uint8_t row)
         // select on mcp23018
         if (mcp23018_status) { // do nothing on error
         } else { // set active row low  : 0 // set other rows hi-Z : 1
-        uint8_t data = 0xFF & ~(1<<row);
-        mcp23018_status = i2c_writeReg(I2C_ADDR, GPIOA, &data, 1, ERGODOX_EZ_I2C_TIMEOUT);
-
+            mcp23018_status = i2c_start(I2C_ADDR_WRITE, ERGODOX_EZ_I2C_TIMEOUT);        if (mcp23018_status) goto out;
+            mcp23018_status = i2c_write(GPIOA, ERGODOX_EZ_I2C_TIMEOUT);                 if (mcp23018_status) goto out;
+            mcp23018_status = i2c_write(0xFF & ~(1<<row), ERGODOX_EZ_I2C_TIMEOUT);      if (mcp23018_status) goto out;
+        out:
+            i2c_stop();
         }
     } else {
         // Output low(DDR:1, PORT:0) to select

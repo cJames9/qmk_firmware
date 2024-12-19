@@ -13,8 +13,10 @@ POINTING_DEVICE_ENABLE = yes
 POINTING_DEVICE_DRIVER = adns5050
 MOUSEKEY_ENABLE = yes        # Mouse keys
 
-ANALOG_DRIVER_REQUIRED = yes
+ENCODER_ENABLE := no
+OPTS_DEF += -DENCODER_ENABLE
 
+QUANTUM_LIB_SRC += analog.c
 SRC += opt_encoder.c
 
 DEFAULT_FOLDER = ploopyco/trackball_mini/rev1_001

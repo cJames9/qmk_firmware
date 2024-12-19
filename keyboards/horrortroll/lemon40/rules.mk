@@ -15,6 +15,7 @@ AUDIO_ENABLE = no           # Audio output
 
 # OLED enabled
 OLED_ENABLE = yes
+OLED_DRIVER = SSD1306
 WPM_ENABLE = yes
 
 # Additional thing to reduce compiled size

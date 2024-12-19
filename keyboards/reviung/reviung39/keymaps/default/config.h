@@ -18,8 +18,9 @@
 
 // place overrides here
 
-#define WS2812_DI_PIN D3
-  #define RGBLIGHT_LED_COUNT 11
+#define RGB_DI_PIN D3
+#ifdef RGB_DI_PIN
+  #define RGBLED_NUM 11
   #define RGBLIGHT_HUE_STEP 16
   #define RGBLIGHT_SAT_STEP 16
   #define RGBLIGHT_VAL_STEP 16
@@ -35,3 +36,4 @@
 #define RGBLIGHT_EFFECT_RGB_TEST
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
+#endif

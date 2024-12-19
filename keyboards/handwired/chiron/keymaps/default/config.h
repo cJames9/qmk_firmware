@@ -19,6 +19,7 @@
 #define MASTER_RIGHT
 //#define MASTER_LEFT
 
+#define IGNORE_MOD_TAP_INTERRUPT
 #define PERMISSIVE_HOLD
 
 #define TAPPING_TERM 200
@@ -30,8 +31,8 @@
 #define MOUSEKEY_WHEEL_MAX_SPEED   8
 #define MOUSEKEY_WHEEL_TIME_TO_MAX 40
 
-#undef  RGBLIGHT_LED_COUNT
-#define RGBLIGHT_LED_COUNT 2
+#undef  RGBLED_NUM
+#define RGBLED_NUM 2
 #define RGBLED_SPLIT {1, 1}
 
 // Don't turn off lights when the host goes to sleep.

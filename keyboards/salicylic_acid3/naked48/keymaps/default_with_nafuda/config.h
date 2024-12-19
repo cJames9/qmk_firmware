@@ -25,11 +25,11 @@
 #define QUICK_TAP_TERM 0
 #define TAPPING_TERM 180
 
-#ifdef RGBLIGHT_LED_COUNT
-  #undef RGBLIGHT_LED_COUNT
+#ifdef RGBLED_NUM
+  #undef RGBLED_NUM
 #endif
 
-#define RGBLIGHT_LED_COUNT 55    // Number of LEDs
+#define RGBLED_NUM 55    // Number of LEDs
 #define RGBLIGHT_SPLIT
 #define RGBLED_SPLIT { 48, 7 }
 

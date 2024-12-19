@@ -14,7 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "quantum.h"
+#include "nebula68b.h"
+#include <lib/lib8tion/lib8tion.h>
 
 #ifndef KEYBOARD_spaceholdings_nebula68b_hs
 #ifdef RGB_MATRIX_ENABLE

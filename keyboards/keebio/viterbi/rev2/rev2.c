@@ -1,4 +1,4 @@
-#include "quantum.h"
+#include "viterbi.h"
 
 void eeconfig_init_kb(void) {
 #ifdef BACKLIGHT_ENABLE

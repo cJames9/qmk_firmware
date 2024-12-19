@@ -1,4 +1,4 @@
-#include "quantum.h"
+#include "quefrency.h"
 #include "split_util.h"
 
 void matrix_init_kb(void) {

@@ -1,6 +1,3 @@
 {
-    "bootloader": "caterina",
-    "bluetooth": {
-        "driver": "bluefruit_le"
-    }
+    "bootloader": "caterina"
 }

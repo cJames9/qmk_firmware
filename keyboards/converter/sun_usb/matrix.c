@@ -15,11 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "matrix.h"
-#include "host.h"
-#include "led.h"
-#include "debug.h"
-#include "wait.h"
+#include QMK_KEYBOARD_H
 #include "uart.h"
 
 /*
@@ -90,9 +86,9 @@ void matrix_init(void)
     /*     print("."); */
     /*     while (uart_read()); */
     /*     uart_write(0x01); */
-    /*     wait_ms(500); */
+    /*     _delay_ms(500); */
     /*     if (uart_read() == 0xFF) { */
-    /*         wait_ms(500); */
+    /*         _delay_ms(500); */
     /*         if (uart_read() == 0x04) */
     /*             break; */
     /*     } */
@@ -111,12 +107,12 @@ uint8_t matrix_scan(void)
     code = uart_read();
     if (!code) return 0;
 
-    dprintf("%02X ", code);
+    debug_hex(code); debug(" ");
 
     switch (code) {
         case 0xFF:  // reset success: FF 04
             print("reset: ");
-            wait_ms(500);
+            _delay_ms(500);
             code = uart_read();
             xprintf("%02X\n", code);
             if (code == 0x04) {
@@ -126,12 +122,12 @@ uint8_t matrix_scan(void)
             return 0;
         case 0xFE:  // layout: FE <layout>
             print("layout: ");
-            wait_ms(500);
+            _delay_ms(500);
             xprintf("%02X\n", uart_read());
             return 0;
         case 0x7E:  // reset fail: 7E 01
             print("reset fail: ");
-            wait_ms(500);
+            _delay_ms(500);
             xprintf("%02X\n", uart_read());
             return 0;
         case 0x7F:

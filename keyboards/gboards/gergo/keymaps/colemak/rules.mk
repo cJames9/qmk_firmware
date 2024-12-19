@@ -18,8 +18,7 @@ DEBUG_MATRIX		 = no
 # know what you're doing.
 #
 # No touchy, capiche?
-SRC += matrix.c
-I2C_DRIVER_REQUIRED = yes
+SRC += matrix.c i2c_master.c
 ifneq ($(strip $(BALLSTEP)),)
     OPT_DEFS += -DTRKSTEP=$(strip $(BALLSTEP))
 endif

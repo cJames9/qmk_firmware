@@ -1,4 +1,5 @@
-/* Copyright 2023 Clickety Split Ltd.
+/* Copyright 2022 Clickety Split Ltd.
+ *                https://clicketysplit.ca
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "quantum.h"
+#include "leeloo.h"
 
 #ifdef OLED_ENABLE
 oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
@@ -47,24 +48,9 @@ static void render_mod_status(uint8_t modifiers) {
 
 static void render_secondary_oled(void) {
     // Version Information
-#if defined(KEYBOARD_clickety_split_leeloo_rev1)
-    oled_write_P(PSTR("Leeloo v1\n\n"), false);
-#elif defined(KEYBOARD_clickety_split_leeloo_rev2)
-    oled_write_P(PSTR("Leeloo v2\n\n"), false);
-#else
-    oled_write_P(PSTR("Leeloo v2.1\n\n"), false);
-#endif
-    
+    oled_write_P(PSTR("Leeloo\n\n"), false);
     oled_write_P(PSTR("Firmware: "), false);
-    
-#if defined(KEYBOARD_clickety_split_leeloo_rev1)
-    oled_write_P(PSTR("v1.13"), false);
-#elif defined(KEYBOARD_clickety_split_leeloo_rev2)
-    oled_write_P(PSTR("v2.13"), false);
-#else
-    oled_write_P(PSTR("v2.14"), false);
-#endif
-    
+    oled_write_P(PSTR("v1.0"), false);
     oled_write_P(PSTR("\n"), false);
     oled_write_P(PSTR("Clickety Split Ltd."), false);
 }
@@ -72,7 +58,7 @@ static void render_secondary_oled(void) {
 static void render_status(void) {
     // Host Keyboard Layer Status
     switch (get_highest_layer(default_layer_state)) {
-        case 0:
+        case _BASE:
             oled_write_P(PSTR("QWERTY | "), false);
             break;
     }
@@ -83,15 +69,15 @@ static void render_status(void) {
             oled_write_P(PSTR("Base   \n"), false);
             break;
 
-        case 1:
+        case _LOWER:
             oled_write_P(PSTR("Lower   \n"), false);
             break;
 
-        case 2:
+        case _RAISE:
             oled_write_P(PSTR("Raise   \n"), false);
             break;
 
-        case 3:
+        case _ADJUST:
             oled_write_P(PSTR("Adjust  \n"), false);
             break;
 
@@ -142,4 +128,4 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
     }
     return true;
 }
-#endif // ENCODER_ENABLE
+#endif

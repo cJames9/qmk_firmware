@@ -12,6 +12,7 @@
 
 #include QMK_KEYBOARD_H
 #include "sten.h"
+#include "keymap_steno.h"
 
 // Proper Layers
 #define FUNCT   (LSD | LK | LP | LH)

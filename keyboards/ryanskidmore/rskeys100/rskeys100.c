@@ -1,7 +1,8 @@
 // Copyright 2021 Ryan Skidmore (@ryanskidmore, rskeys@ryanskidmore.co.uk)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include "quantum.h"
+#include "rskeys100.h"
+
 
 #ifdef RGB_MATRIX_ENABLE
 led_config_t g_led_config = {

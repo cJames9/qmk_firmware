@@ -13,5 +13,5 @@ AUDIO_ENABLE = no           # Audio output
 RGBLIGHT_ENABLE = no
 
 # project specific files
-SRC = matrix.c
-I2C_DRIVER_REQUIRED = yes
+SRC = i2c_master.c \
+	  matrix.c

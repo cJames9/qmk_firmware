@@ -19,6 +19,8 @@
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
 
+#define DYNAMIC_KEYMAP_LAYER_COUNT 6
+
 #define PICO_XOSC_STARTUP_DELAY_MULTIPLIER 64
 
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET // Activates the double-tap behavior

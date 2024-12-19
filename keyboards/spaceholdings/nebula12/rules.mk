@@ -16,6 +16,7 @@ NKRO_ENABLE = yes           # Enable N-Key Rollover
 AUDIO_ENABLE = no                  # Audio output
 NO_USB_STARTUP_CHECK = no          # Disable initialization only when usb is plugged in
 RGBLIGHT_ENABLE = yes              # Underglow RGB
+WS2812_DRIVER = spi                # Underglow RGB Driver
 
 CIE1931_CURVE = yes
 
@@ -24,4 +25,4 @@ SRC +=  keyboards/wilba_tech/wt_main.c \
         keyboards/wilba_tech/wt_rgb_backlight.c \
         drivers/led/issi/is31fl3731.c \
         quantum/color.c
-I2C_DRIVER_REQUIRED = yes
+QUANTUM_LIB_SRC += i2c_master.c

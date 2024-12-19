@@ -1,4 +1,4 @@
-#include "quantum.h"
+#include "kbo5000.h"
 #include "split_util.h"
 
 void matrix_init_kb(void) {

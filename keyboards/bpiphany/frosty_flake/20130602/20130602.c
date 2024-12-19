@@ -1,4 +1,4 @@
-#include "quantum.h"
+#include "frosty_flake.h"
 
 void keyboard_pre_init_kb(void) {
     setPinOutput(B7); // caps lock

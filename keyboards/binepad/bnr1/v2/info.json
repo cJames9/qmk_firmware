@@ -13,7 +13,10 @@
     "encoder": {
         "enabled": true,
         "rotary": [
-            {"pin_a": "B3", "pin_b": "B4"}
+            { 
+                "pin_a": "B3", 
+                "pin_b": "B4"
+            }
         ]
     }
 }

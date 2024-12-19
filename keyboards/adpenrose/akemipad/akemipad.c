@@ -1,7 +1,7 @@
 // Copyright 2022 Arturo Avila (@ADPenrose)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include "quantum.h"
+#include "akemipad.h"
 
 #ifdef RGB_MATRIX_ENABLE
 

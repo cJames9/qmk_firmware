@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "quantum.h"
+#include "adelais.h"
 
 #ifdef RGBLIGHT_ENABLE
 void keyboard_post_init_kb(void) {

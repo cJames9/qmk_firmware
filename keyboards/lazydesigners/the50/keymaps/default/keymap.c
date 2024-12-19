@@ -49,12 +49,11 @@ EE_CLR,  _______, _______,          _______,            _______,                
 )
 };
 
-bool led_update_user(led_t led_state) {
+void led_set_user(uint8_t usb_led) {
   // Turn LED On/Off for Caps Lock
-  if (led_state.caps_lock) {
+  if (host_keyboard_leds() & (1 << USB_LED_CAPS_LOCK)) {
     the50_led_on();
   } else {
     the50_led_off();
   }
-  return false;
 }

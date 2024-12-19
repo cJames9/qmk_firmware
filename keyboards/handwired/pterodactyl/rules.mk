@@ -16,6 +16,7 @@ AUDIO_ENABLE = no           # Audio output
 UNICODE_ENABLE = yes
 CUSTOM_MATRIX = yes
 BLUETOOTH_ENABLE = yes
+BLUETOOTH_DRIVER = BluefruitLE
 
 SRC += matrix.c
-I2C_DRIVER_REQUIRED = yes
+QUANTUM_LIB_SRC += i2c_master.c

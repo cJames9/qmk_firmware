@@ -1,18 +1,14 @@
 # Quarkeys Z40 Low Profile Keyboard
 
-![Quarkeys Z40 Pastry](https://raw.githubusercontent.com/noroadsleft/qmk_images/master/keyboards/quarkeys/z40/72b918_ef3d9bc5f32e4b2ba224b0a25bc017f4~mv2.png "Quarkeys Z40 PCB render")
+![Quarkeys Z40 Pastry](https://raw.githubusercontent.com/tommyamoszhao/keyboardimage/main/Z40/Z40_1024.png)
 
 A 40% Bottom mount low-profile & MX switch compatible keyboard.
 
-* Keyboard Maintainer: [TommyZ](https://github.com/tommyamoszhao)
+* Keyboard Maintainer: [Quarkeys Studio](www.quarkeys.com)
 * Hardware Supported: Z40-ACR, Z40-Pastry
-* Hardware Availability: [Quarkeys Studio](https://www.quarkeys.com/product-page/z40-extra-pcb)
-
-## Hardware Specs
-
-* Per-key RGBs, layer & Capslock indicators
-  * For [RGB Matrix feature](https://docs.qmk.fm/#/feature_rgb_matrix): `RGB_MATRIX_ENABLE = yes`, `RGBLIGHT_ENABLE = no`.
-  * For [RGB Light feature](https://docs.qmk.fm/#/feature_rgblight): `RGB_MATRIX_ENABLE = no`, `RGBLIGHT_ENABLE = yes`.
+* Hardware Specs: Per-key RGBs, layer & Capslock indicators
+* For [RGB Matrix feature](https://docs.qmk.fm/#/feature_rgb_matrix): `RGB_MATRIX_ENABLE = yes`, `RGBLIGHT_ENABLE = no`.
+* For [RGB Light feature](https://docs.qmk.fm/#/feature_rgblight): `RGB_MATRIX_ENABLE = no`, `RGBLIGHT_ENABLE = yes`.
 
 Make example for this keyboard solder version keymap(after setting up your build environment):
 

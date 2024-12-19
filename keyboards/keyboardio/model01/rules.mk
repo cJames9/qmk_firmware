@@ -9,9 +9,10 @@ COMMAND_ENABLE = no        # Commands for debug and configuration
 NKRO_ENABLE = no            # Enable N-Key Rollover
 
 CUSTOM_MATRIX = yes
-I2C_DRIVER_REQUIRED = yes
+QUANTUM_LIB_SRC += i2c_master.c
 SRC += leds.c \
 	   matrix.c
 
 # You can set RGB_MATRIX_ENABLE = no in your rules.mk to disable this and save the Flash
 RGB_MATRIX_ENABLE = yes # Enable RGB matrix effects.
+RGB_MATRIX_DRIVER = custom

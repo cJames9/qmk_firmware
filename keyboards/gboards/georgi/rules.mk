@@ -14,5 +14,4 @@ CUSTOM_MATRIX = yes
 STENO_ENABLE = yes
 LTO_ENABLE = yes
 
-SRC += matrix.c
-I2C_DRIVER_REQUIRED = yes
+SRC += matrix.c i2c_master.c

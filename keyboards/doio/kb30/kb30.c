@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "quantum.h"
+#include "kb30.h"
 
 
 #ifdef RGB_MATRIX_ENABLE

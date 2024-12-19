@@ -1,3 +1,6 @@
+# Use SPI for RGB underglow:
+WS2812_DRIVER = spi
+
 # Build Options
 #   change yes to no to disable
 #

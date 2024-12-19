@@ -15,9 +15,12 @@ KEYBOARD_SHARED_EP = yes
 MIDI_ENABLE = yes
 
 RGB_MATRIX_ENABLE = yes
+RGB_MATRIX_DRIVER = AW20216
+
+EEPROM_DRIVER = wear_leveling
+WEAR_LEVELING_DRIVER = spi_flash
 
 LTO_ENABLE = yes
 
-ANALOG_DRIVER_REQUIRED = yes
-
-SRC += matrix.c
+SRC += 	analog.c \
+		matrix.c

@@ -12,3 +12,4 @@ RGBLIGHT_ENABLE = no           # Enable keyboard RGB underglow
 AUDIO_ENABLE = no              # Audio output
 LTO_ENABLE = yes			   # Compile-time optimizations
 RGB_MATRIX_ENABLE = yes        # Use RGB matrix
+RGB_MATRIX_DRIVER = IS31FL3741

@@ -1,4 +1,4 @@
-#include "quantum.h"
+#include "levinson.h"
 
 void eeconfig_init_kb(void) {
 #ifdef BACKLIGHT_ENABLE

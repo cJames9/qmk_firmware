@@ -31,6 +31,7 @@
         "levels": 5
     },
     "rgblight": {
+        "pin": "E2",
         "led_count": 4,
         "animations": {
             "breathing": true,
@@ -44,9 +45,6 @@
             "alternating": true,
             "twinkle": true
         }
-    },
-    "ws2812": {
-        "pin": "E2"
     },
     "community_layouts": ["ortho_4x4"],
     "layouts": {

@@ -13,3 +13,4 @@ AUDIO_ENABLE = no           # Audio output
 ENCODER_ENABLE = yes
 SPLIT_KEYBOARD = yes
 OLED_ENABLE = yes
+OLED_DRIVER = SSD1306

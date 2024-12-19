@@ -22,3 +22,6 @@ POINTING_DEVICE_ENABLE = yes
 POINTING_DEVICE_DRIVER = cirque_pinnacle_i2c # DIY version uses I2C.
 
 SPLIT_KEYBOARD = yes
+
+# RP2040-specific options
+PICO_INTRINSICS_ENABLED = no # ATM Unsupported by ChibiOS.

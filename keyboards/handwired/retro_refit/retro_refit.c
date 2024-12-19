@@ -1,4 +1,4 @@
-#include "quantum.h"
+#include "retro_refit.h"
 #include "led.h"
 
 void matrix_init_kb(void) {

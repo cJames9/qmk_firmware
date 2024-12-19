@@ -13,6 +13,7 @@ AUDIO_ENABLE = no           # Audio output
 
 SPLIT_KEYBOARD = yes
 SERIAL_DRIVER = usart
+WS2812_DRIVER = pwm
 
 # Disable unsupported hardware
 AUDIO_SUPPORTED = no

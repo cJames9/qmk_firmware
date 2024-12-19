@@ -1,4 +1,4 @@
-#include "quantum.h"
+#include "kc60.h"
 
 void led_update_ports(led_t led_state) {
     if (led_state.caps_lock) {

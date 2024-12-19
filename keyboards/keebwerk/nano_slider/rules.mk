@@ -13,4 +13,4 @@ MIDI_ENABLE = yes           # MIDI support
 AUDIO_ENABLE = no           # Audio output
 LTO_ENABLE = yes
 
-ANALOG_DRIVER_REQUIRED = yes
+SRC += analog.c
