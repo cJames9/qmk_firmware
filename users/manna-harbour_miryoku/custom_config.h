@@ -26,10 +26,10 @@
 #define DYNAMIC_KEYMAP_LAYER_COUNT 10
 #define DEBOUNCE 50
 
-#define MOUSEKEY_WHEEL_DELTA 5
-#define MOUSEKEY_WHEEL_INTERVAL 50
+// #define MOUSEKEY_WHEEL_DELTA 5
+// #define MOUSEKEY_WHEEL_INTERVAL 50
 
-#define OLED_FONT_H "keyboards/sofle_choc/keymaps/cjames9_miryoku/soflefont.h"
+#define OLED_FONT_H "keyboards/sofle_choc/keymaps/manna-harbour_miryoku/soflefont.h"
 
 #define ENABLE_RGB_MATRIX_ALPHAS_MODS
 #define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN

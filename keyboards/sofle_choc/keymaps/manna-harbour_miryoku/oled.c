@@ -9,14 +9,28 @@
 
 #include <stdio.h>
 
-enum layers {
-   _BASE = 0,
-   _CLMK,
-   _GAME,
-   _SYMB,
-   _NAVI,
-   _TNAV,
-   _NUM
+#define LEFT(source,n)   LMR(source,0,n,0)
+
+#if !defined (MIRYOKU_LAYER_LIST)
+
+#define MIRYOKU_LAYER_LIST \
+MIRYOKU_X(BASE,   "Base") \
+MIRYOKU_X(EXTRA,  "Extra") \
+MIRYOKU_X(TAP,    "Tap") \
+MIRYOKU_X(BUTTON, "Button") \
+MIRYOKU_X(NAV,    "Nav") \
+MIRYOKU_X(MOUSE,  "Mouse") \
+MIRYOKU_X(MEDIA,  "Media") \
+MIRYOKU_X(NUM,    "Num") \
+MIRYOKU_X(SYM,    "Sym") \
+MIRYOKU_X(FUN,    "Fun")
+
+#endif
+
+enum miryoku_layers {
+#define MIRYOKU_X(LAYER, STRING) U_##LAYER,
+MIRYOKU_LAYER_LIST
+#undef MIRYOKU_X
 };
 
 #ifdef OLED_ENABLE
@@ -24,6 +38,7 @@ char wpm_str[12];
 char buf[30];
 char mod_str[12];
 char keylog_str[24] = {};
+char layer_name[3];
 uint16_t wpm_graph_timer = 0;
 // static uint32_t oled_timer = 0;
 static uint32_t anim_timer = 0;
@@ -42,34 +57,19 @@ void oled_render_space(void) {
     oled_write("     ", false);
 }
 
-void oled_render_layer_state(void) {
-    switch (get_highest_layer(layer_state)) {
-        case _BASE:
-            oled_write("[QWR]", false);
-            break;
-        case _CLMK:
-            oled_write("[CMK]", false);
-            break;
-        case _GAME:
-            oled_write("[GAM]", false);
-            break;
-        case _SYMB:
-            oled_write("[SYM]", true);
-            break;
-        case _NAVI:
-            oled_write("[NAV]", true);
-            break;
-        case _TNAV:
-            oled_write("[TNV]", true);
-            break;
-        case _NUM:
-            oled_write("[NUM]", true);
-            break;
-        default:
-            oled_write("[NOP]", true);
-            break;
-    }
-}
+#define MIRYOKU_X(LAYER, STRING) \
+void oled_render_layer_state(void) { \
+    switch (get_highest_layer(layer_state)) { \
+        case U_##LAYER: \
+            oled_write(("[%d]", LEFT(STRING, 3)), false);\
+            break; \
+        default: \
+            oled_write("[NOP]", true); \
+            break; \
+    } \
+} \
+MIRYOKU_LAYER_LIST
+#undef MIRYOKU_X
 
 void set_keylog(uint16_t keycode, keyrecord_t *record) {
     if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) ||

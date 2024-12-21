@@ -1,7 +1,7 @@
 # Copyright 2019 Manna Harbour
 # https://github.com/manna-harbour/miryoku
 
-ENCODER_MAP_ENABLE 	 = yes
+ENCODER_MAP_ENABLE 	 = no
 VIA_ENABLE 			 = yes   # Configuring keyboard with VIA
 SPACE_CADET_ENABLE 	 = no
 GRAVE_ESC_ENABLE 	 = no
