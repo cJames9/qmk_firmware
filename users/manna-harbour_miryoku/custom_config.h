@@ -16,10 +16,9 @@
 #define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
 #define CAPS_WORD_INVERT_ON_SHIFT
 #define DYNAMIC_KEYMAP_LAYER_COUNT 10
-#define DEBOUNCE 50
+#define DEBOUNCE 40
 #define CHORDAL_HOLD
-#define RETRO_TAPPING
-#define MODS_TO_NEUTRALIZE { MOD_BIT(KC_LEFT_GUI) }
+#define PERMISSIVE_HOLD
 
 #define OLED_FONT_H "keyboards/sofle_choc/keymaps/manna-harbour_miryoku/soflefont.h"
 
@@ -107,8 +106,32 @@ BR_ACUT,           KC_DLR,            KC_PERC,           KC_CIRC,           KC_P
 BR_TILD,           KC_EXLM,           KC_AT,             KC_HASH,           BR_PIPE,           U_NA,              TD(U_TD_U_SYM),    TD(U_TD_U_MOUSE),  KC_ALGR,           U_NA,              \
 U_NP,              U_NP,              KC_LPRN,           KC_RPRN,           KC_UNDS,           U_NA,              U_NA,              U_NA,              U_NP,              U_NP
 
+#define MIRYOKU_CUSTOM_MEDIA_INVERTEDT \
+TD(U_TD_BOOT),     TD(U_TD_U_TAP),    TD(U_TD_U_EXTRA),  TD(U_TD_U_BASE),   U_NA,              RGB_TOG,           RGB_MOD,           KC_VOLU,           RGB_HUI,           RGB_SAI,           \
+KC_LGUI,           KC_LALT,           KC_LCTL,           KC_LSFT,           U_NA,              RGB_SPI,           KC_MPRV,           KC_VOLD,           KC_MNXT,           RGB_VAI,           \
+U_NA,              KC_ALGR,           TD(U_TD_U_FUN),    TD(U_TD_U_MEDIA),  U_NA,              OU_AUTO,           U_NU,              U_NU,              U_NU,              U_NU,              \
+U_NP,              U_NP,              U_NA,              U_NA,              U_NA,              KC_MSTP,           KC_MPLY,           KC_MUTE,           U_NP,              U_NP
+
 #define MIRYOKU_LAYER_BASE MIRYOKU_CUSTOM_BASE_QWERTY
 #define MIRYOKU_LAYER_EXTRA MIRYOKU_CUSTOM_BASE_COLEMAKDH
 #define MIRYOKU_LAYER_TAP MIRYOKU_CUSTOM_TAP_QWERTY
 #define MIRYOKU_LAYER_NUM MIRYOKU_CUSTOM_NUM
 #define MIRYOKU_LAYER_SYM MIRYOKU_CUSTOM_SYM
+#define MIRYOKU_LAYER_MEDIA MIRYOKU_CUSTOM_MEDIA_INVERTEDT
+
+#define XXX KC_NO
+
+#if defined (KEYBOARD_sofle_choc)
+#define MIRYOKU_MAPPING( \
+    K00, K01, K02, K03, K04,                K05, K06, K07, K08, K09,\
+    K10, K11, K12, K13, K14,                K15, K16, K17, K18, K19,\
+    K20, K21, K22, K23, K24,                K25, K26, K27, K28, K29,\
+    N30, N31, K32, K33, K34,                K35, K36, K37, N38, N39 \
+) \
+LAYOUT(\
+    XXX, XXX, XXX, XXX, XXX, XXX,                XXX, XXX, XXX, XXX, XXX, XXX,\
+    XXX, K00, K01, K02, K03, K04,                K05, K06, K07, K08, K09, BR_ACUT,\
+KC_CAPS, K10, K11, K12, K13, K14,                K15, K16, K17, K18, K19, BR_TILD,\
+    XXX, K20, K21, K22, K23, K24, XXX,      XXX, K25, K26, K27, K28, K29, XXX,\
+              XXX, XXX, K32, K33, K34,      K35, K36, K37, XXX, XXX)
+#endif
