@@ -19,7 +19,7 @@ MIRYOKU_LAYER_LIST
 
 void u_td_fn_boot(tap_dance_state_t *state, void *user_data) {
   if (state->count == 2) {
-    reset_keyboard();
+    soft_reset_keyboard();
   }
 }
 
