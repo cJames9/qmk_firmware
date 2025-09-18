@@ -108,8 +108,8 @@ BR_TILD,           KC_EXLM,           KC_AT,             KC_HASH,           BR_P
 U_NP,              U_NP,              KC_LPRN,           KC_RPRN,           KC_UNDS,           U_NA,              U_NA,              U_NA,              U_NP,              U_NP
 
 #define MIRYOKU_CUSTOM_MEDIA_INVERTEDT \
-TD(U_TD_BOOT),     TD(U_TD_U_TAP),    TD(U_TD_U_EXTRA),  TD(U_TD_U_BASE),   U_NA,              RGB_TOG,           RGB_MOD,           KC_VOLU,           RGB_HUI,           RGB_SAI,           \
-KC_LGUI,           KC_LALT,           KC_LCTL,           KC_LSFT,           U_NA,              RGB_SPI,           KC_MPRV,           KC_VOLD,           KC_MNXT,           RGB_VAI,           \
+TD(U_TD_BOOT),     TD(U_TD_U_TAP),    TD(U_TD_U_EXTRA),  TD(U_TD_U_BASE),   U_NA,              RM_TOGG,           RM_NEXT,           KC_VOLU,           RM_HUEU,           RM_SATU,           \
+KC_LGUI,           KC_LALT,           KC_LCTL,           KC_LSFT,           U_NA,              RM_SPDU,           KC_MPRV,           KC_VOLD,           KC_MNXT,           RM_VALU,           \
 U_NA,              KC_ALGR,           TD(U_TD_U_FUN),    TD(U_TD_U_MEDIA),  U_NA,              OU_AUTO,           U_NU,              U_NU,              U_NU,              U_NU,              \
 U_NP,              U_NP,              U_NA,              U_NA,              U_NA,              KC_MSTP,           KC_MPLY,           KC_MUTE,           U_NP,              U_NP
 
