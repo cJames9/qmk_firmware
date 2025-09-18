@@ -19,6 +19,7 @@
 #define DEBOUNCE 40
 #define CHORDAL_HOLD
 #define PERMISSIVE_HOLD
+#define LUMBERJACK_COLOR
 
 #define OLED_FONT_H "keyboards/sofle_choc/keymaps/manna-harbour_miryoku/soflefont.h"
 
