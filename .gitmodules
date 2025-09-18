@@ -25,3 +25,6 @@
 	path = lib/lvgl
 	url = https://github.com/qmk/lvgl.git
 	branch = release/v8.2
+[submodule "modules/dave-thompson"]
+	path = modules/dave-thompson
+	url = https://github.com/dave-thompson/qmk-modules.git
