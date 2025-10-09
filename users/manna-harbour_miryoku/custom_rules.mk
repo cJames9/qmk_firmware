@@ -6,6 +6,7 @@ WPM_ENABLE           = yes   # WPM Calculation
 CONSOLE_ENABLE 		 = yes
 COMMAND_ENABLE       = no
 LUMBERJACK_ENABLE    = yes
+AUTO_SHIFT_ENABLE = no
 
 ifeq ($(strip $(OLED_ENABLE)), yes)
     SRC += oled.c
